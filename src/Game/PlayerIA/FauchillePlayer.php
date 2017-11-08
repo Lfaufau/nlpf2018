@@ -18,26 +18,21 @@ class FauchillePlayer extends Player
     public function getChoice()
     {
       $choicewin = array();
-      $choicewin["rock"] = parent::paperChoice();
-      $choicewin["scissors"] = parent::rockChoice();
-      $choicewin["paper"] = parent::scissorsChoice();
+      $choicewin["rock"]      = parent::paperChoice();
+      $choicewin["scissors"]  = parent::rockChoice();
+      $choicewin["paper"]     = parent::scissorsChoice();
 
-      $roundOne = array();
-      $roundOne[parent::rockChoice()] = parent::paperChoice();
-      $roundOne[parent::paperChoice()] = parent::scissorsChoice();
-      $roundOne[parent::scissorsChoice()] = parent::rockChoice();
-
-      var_dump($this->result->getStatsFor($this->mySide));
+      //var_dump($this->result->getStatsFor($this->mySide));
       $round = $this->result->getNbRound();
 
       if ($round > 0 && $round <= 50)
         return $choicewin[$this->result->getLastChoiceFor($this->opponentSide)];
 
-      $oppoStats = $this->result->getStatsFor($this->opponentSide);
-      $choice = $choicewin[getMax($oppoStats["rock"], $oppoStats["paper"], $oppoStats["scissors"])];
+      $oppoStats  = $this->result->getStatsFor($this->opponentSide);
+      $choice     = $choicewin[getMax($oppoStats["rock"], $oppoStats["paper"], $oppoStats["scissors"])];
 
-      if ($round > 50 && $round > 10 && $this->result->getLastScoreFor($this->opponentSide) != 0)
-        $choice = $roundOne[$choice];
+      if ($round > 50 && $this->result->getLastScoreFor($this->opponentSide) != 0)
+        $choice = $choicewin[$choice];
 
       return $choice;
     }
