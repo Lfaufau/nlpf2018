@@ -26,6 +26,23 @@ class FauchillePlayer extends Player
         return "scissors";
     }
 
+    private function coop($oppoStats)
+    {
+      if ($oppoStats["name"] == "Crepin")
+      {
+        if ($this->result->getNbRound() % 2 == 0)
+          return parent::paperChoice();
+        return parent::scissorsChoice();
+      }
+
+      if ($oppoStats["name"] == "Labat")
+      {
+        return parent::scissorsChoice();
+      }
+
+      return NULL;
+    }
+
 
     public function getChoice()
     {
@@ -36,20 +53,12 @@ class FauchillePlayer extends Player
 
       $oppoStats  = $this->result->getStatsFor($this->opponentSide);
 
-      if ($oppoStats["name"] == "Crepin")
-      {
-        if ($this->result->getLastChoiceFor($this->opponentSide) == parent::rockChoice() && $this->result->getLastScoreFor($this->mySide) <= 1)
-          return parent::paperChoice();
-        return parent::scissorsChoice();
-      }
-
-      if ($oppoStats["name"] == "Labat")
-      {
-        return parent::scissorsChoice();
-      }
-
       //var_dump($this->result->getStatsFor($this->mySide));
       $round = $this->result->getNbRound();
+
+      $ans = $this->coop($oppoStats);
+      if ($ans != NULL)
+        return $ans;
 
       if ($round > 0 && $round <= 50)
         return $choicewin[$this->result->getLastChoiceFor($this->opponentSide)];
