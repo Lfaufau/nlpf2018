@@ -30,9 +30,9 @@ class FauchillePlayer extends Player
     public function getChoice()
     {
       $choicewin = array();
-      $choicewin["rock"]      = parent::paperChoice();
-      $choicewin["scissors"]  = parent::rockChoice();
-      $choicewin["paper"]     = parent::scissorsChoice();
+      $choicewin[parent::rockChoice()]      = parent::paperChoice();
+      $choicewin[parent::scissorsChoice()]  = parent::rockChoice();
+      $choicewin[parent::paperChoice()]     = parent::scissorsChoice();
 
       //var_dump($this->result->getStatsFor($this->mySide));
       $round = $this->result->getNbRound();
