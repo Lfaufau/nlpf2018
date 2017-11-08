@@ -40,6 +40,21 @@ class FauchillePlayer extends Player
         return parent::scissorsChoice();
       }
 
+      if ($oppoStats["name"] == "Garnaoui")
+      {
+        if ($this->result->getNbRound() % 2 == 0)
+          return parent::rockChoice();
+        return parent::scissorsChoice();
+      }
+
+      if ($oppoStats["name"] == "Diomande")
+      {
+        if ($this->result->getNbRound() % 2 == 0)
+            return parent::rockChoice();
+        return parent::paperChoice();
+
+      }
+
       return NULL;
     }
 
