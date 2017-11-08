@@ -24,7 +24,7 @@ class FauchillePlayer extends Player
 
       //var_dump($this->result->getStatsFor($this->mySide));
 
-      if ($this->result->getNbRound() <= 100)
+      if ($this->result->getNbRound() <= 100 && $this->result->getNbRound() > 0)
         return $choicewin[$this->result->getLastChoiceFor($this->opponentSide)];
 
       $oppoStats = $this->result->getStatsFor($this->opponentSide);
