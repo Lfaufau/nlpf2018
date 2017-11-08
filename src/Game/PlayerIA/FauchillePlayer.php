@@ -17,6 +17,15 @@ class FauchillePlayer extends Player
 
     public function getChoice()
     {
+      $choicewin = array();
+      $choicewin["rock"] = parent::paperChoice();
+      $choicewin["scissors"] = parent::rockChoice();
+      $choicewin["paper"] = parent::scissorsChoice();
+
+      $oppoStats = $this->result->getStatsFor($this->opponentSide);
+      $choice = $choicewin[getmax($oppoStats["rock"], $oppoStats["paper"], $oppoStats["scissors"])];
+
+
         // -------------------------------------    -----------------------------------------------------
         // How to get my Last Choice           ?    $this->result->getLastChoiceFor($this->mySide) -- if 0 (first round)
         // How to get the opponent Last Choice ?    $this->result->getLastChoiceFor($this->opponentSide) -- if 0 (first round)
@@ -41,8 +50,18 @@ class FauchillePlayer extends Player
         // How can i display the result of each round ? $this->prettyDisplay()
         // -------------------------------------    -----------------------------------------------------
 
-        $choice = parent::scissorsChoice();
-
         return $choice;
     }
 };
+
+
+function getmax($rock, $paper, $scissors)
+{
+    if ($rock >= $paper && $rock >= $scissors)
+        return "rock";
+
+    if ($paper >= $scissors && $paper >= $rock)
+        return "paper";
+
+    return "scissors";
+}
