@@ -15,6 +15,18 @@ class FauchillePlayer extends Player
     protected $opponentSide;
     protected $result;
 
+    private function getMax($rock, $paper, $scissors)
+    {
+        if ($rock >= $paper && $rock >= $scissors)
+            return "rock";
+
+        if ($paper >= $scissors && $paper >= $rock)
+            return "paper";
+
+        return "scissors";
+    }
+
+
     public function getChoice()
     {
       $choicewin = array();
@@ -29,25 +41,16 @@ class FauchillePlayer extends Player
         return $choicewin[$this->result->getLastChoiceFor($this->opponentSide)];
 
       $oppoStats  = $this->result->getStatsFor($this->opponentSide);
-      $choice     = $choicewin[getMax($oppoStats["rock"], $oppoStats["paper"], $oppoStats["scissors"])];
+      $choice     = $choicewin[$this->getMax($oppoStats["rock"], $oppoStats["paper"], $oppoStats["scissors"])];
 
       if ($round > 50 && $this->result->getLastScoreFor($this->opponentSide) != 0)
-        $choice = $choicewin[$choice];
+        $choice = $choicewin[$choicewin[$choice]];
 
       return $choice;
     }
 };
 
-function getMax($rock, $paper, $scissors)
-{
-    if ($rock >= $paper && $rock >= $scissors)
-        return "rock";
 
-    if ($paper >= $scissors && $paper >= $rock)
-        return "paper";
-
-    return "scissors";
-}
 
 
 // -------------------------------------    -----------------------------------------------------
