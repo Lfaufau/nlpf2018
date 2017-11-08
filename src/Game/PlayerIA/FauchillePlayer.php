@@ -27,16 +27,16 @@ class FauchillePlayer extends Player
       $roundOne[parent::paperChoice()] = parent::scissorsChoice();
       $roundOne[parent::scissorsChoice()] = parent::rockChoice();
 
-      //var_dump($this->result->getStatsFor($this->mySide));
+      var_dump($this->result->getStatsFor($this->mySide));
       $round = $this->result->getNbRound();
 
-      if ($round > 0 && $round <= 100)
+      if ($round > 0 && $round <= 50)
         return $choicewin[$this->result->getLastChoiceFor($this->opponentSide)];
 
       $oppoStats = $this->result->getStatsFor($this->opponentSide);
       $choice = $choicewin[getMax($oppoStats["rock"], $oppoStats["paper"], $oppoStats["scissors"])];
 
-      if ($round > 500 && $round > 100 && $this->result->getLastScoreFor($this->opponentSide) != 0)
+      if ($round > 50 && $round > 10 && $this->result->getLastScoreFor($this->opponentSide) != 0)
         $choice = $roundOne[$choice];
 
       return $choice;
